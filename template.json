@@ -4,7 +4,7 @@
   "Parameters":{
      "AvailabilityZone": {
     "Description": "select the Availability Zone for your Deployment",
-    "Type": "AWS::EC2::AvailabilityZone::Name"
+    "Type": "AWS::EC2::AvailabilityZone::us-west-1a"
       }
   },
   "Mappings": {
@@ -30,7 +30,7 @@
       },
         "Tags": [
           {
-            "Key": "Name",                                                                                                                                                                      
+            "Key": "User1",                                                                                                                                                                      
             "Value": "vpc01"                                                                                                                                                                    
           }                                                                                                                                                                                     
         ]                                                                                                                                                                                       
@@ -64,7 +64,7 @@
         "VpcId": {"Ref": "VPC"},
         "Tags": [
           {
-            "Key": "Name",
+            "Key": "User1",
             "Value": "subnet01"
           }
         ]
@@ -107,7 +107,7 @@
         ],
         "Tags": [
           {
-            "Key": "Name",
+            "Key": "User1",
             "Value": "sg01"
           }
         ]
