@@ -64,7 +64,7 @@
         "VpcId": {"Ref": "VPC"},
         "Tags": [
           {
-            "Key": "User1",
+            "Key": "Name",
             "Value": "subnet01"
           }
         ]
@@ -107,7 +107,7 @@
         ],
         "Tags": [
           {
-            "Key": "User1",
+            "Key": "Name",
             "Value": "sg01"
           }
         ]
