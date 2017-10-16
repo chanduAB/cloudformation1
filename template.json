@@ -1,0 +1,134 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CF Template to create VPC, Subnet, Security Group, Route Table and Internet Gateway",
+  "Parameters":{
+     "AvailabilityZone": {
+    "Description": "select the Availability Zone for your Deployment",
+    "Type": "AWS::EC2::AvailabilityZone::Name"
+      }
+  },
+  "Mappings": {
+    "SubnetConfig": {
+      "VPC": {
+        "CIDR": "10.0.0.0/16"
+      },
+      "Subnet": {
+        "CIDR": "10.0.0.0/24"
+      }
+    }
+  },
+  "Resources":{
+     "VPC": {
+    "Type": "AWS::EC2::VPC",
+    "Properties": {
+      "CidrBlock": {
+        "Fn::FindInMap": [
+          "SubnetConfig",
+          "VPC",
+          "CIDR"
+        ]
+      },
+        "Tags": [
+          {
+            "Key": "Name",                                                                                                                                                                      
+            "Value": "vpc01"                                                                                                                                                                    
+          }                                                                                                                                                                                     
+        ]                                                                                                                                                                                       
+      }                                                                                                                                                                                         
+    },
+    "InternetGateway": {
+      "Type": "AWS::EC2::InternetGateway"
+    },
+    "InternetGatewayAttachement": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+     "InternetGatewayId": {
+          "Ref": "InternetGateway"
+        },
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      }
+    },
+    "EC2InstanceSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": {
+          "Fn::FindInMap": [
+            "SubnetConfig",
+            "Subnet",
+            "CIDR"
+          ]
+        },
+        "AvailabilityZone": {"Ref": "AvailabilityZone"},
+        "VpcId": {"Ref": "VPC"},
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "subnet01"
+          }
+        ]
+      }
+    },
+    "PublicSubnetsRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {"Ref": "VPC"}
+      }
+    },
+    "InternetRoute": {
+      "Type": "AWS::EC2::Route",
+      "DependsOn": "InternetGateway",
+      "Properties": {
+        "RouteTableId": {"Ref": "PublicSubnetsRouteTable"},
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {"Ref": "InternetGateway"}
+      }
+    },
+    "AssociateRouteTableWithPublicSubnet": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {"Ref": "PublicSubnetsRouteTable"},
+        "SubnetId": {"Ref": "EC2InstanceSubnet"}
+      }
+    },
+    "SecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "EC2 security group",
+        "VpcId": {"Ref": "VPC"},
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "80",
+            "ToPort": "80",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "sg01"
+          }
+        ]
+      }
+    }
+ },
+  "Outputs": {
+    "VpcId": 
+    {
+      "Value": {"Ref": "VPC"},
+      "Description": "The id of the created vpc"
+    },
+    "SubnetId":
+    {
+      "Value": {"Ref": "EC2InstanceSubnet"},
+      "Description": "The id of the created subnet"
+    },
+     "SecurityGroupId":
+    {
+      "Value": {"Ref": "SecurityGroup"},
+      "Description": "The id of the created subnet"
+    }
+  }
+}
