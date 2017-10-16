@@ -4,7 +4,7 @@
   "Parameters":{
      "AvailabilityZone": {
     "Description": "select the Availability Zone for your Deployment",
-    "Type": "AWS::EC2::AvailabilityZone::us-west-2a"
+    "Type": "AWS::EC2::AvailabilityZone::Name"
       }
   },
   "Mappings": {
