@@ -114,7 +114,7 @@ SubnetC:
                     }
                   ],
         
-        "KeyName" : "User1",
+        "KeyName" : "User2",
         "ImageId" : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" },
                           { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "InstanceType" }, "Arch" ] } ] }
       }
