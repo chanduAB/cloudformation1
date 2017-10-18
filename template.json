@@ -60,7 +60,7 @@
             "CIDR"
           ]
         },
-        "AvailabilityZone": {"Ref": "AvailabilityZone"},
+        "AvailabilityZone": {"Ref": "us-west-2"},
         "VpcId": {"Ref": "VPC"},
         "Tags": [
           {
