@@ -4,7 +4,7 @@
   "Parameters":{
      "AvailabilityZone": {
     "Description": "select the Availability Zone for your Deployment",
-    "Type": "AWS::EC2::AvailabilityZone::Name"
+    "Type": "AWS::EC2::AvailabilityZone::us-west-2"
       }
   },
   "Mappings": {
@@ -30,7 +30,7 @@
       },
         "Tags": [
           {
-            "Key": "User2",                                                                                                                                                                      
+            "Key": "stack2",                                                                                                                                                                      
             "Value": "vpc02"                                                                                                                                                                    
           }                                                                                                                                                                                     
         ]                                                                                                                                                                                       
