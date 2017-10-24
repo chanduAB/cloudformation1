@@ -167,12 +167,12 @@
                      
           { 
             "Key" : "Name", 
-            "Value" : "Stack12" 
+            "Value" : "stack01" 
                     
           } 
                   ], 
           
-         "KeyName" : "User2", 
+         "KeyName" : "stack2", 
         "ImageId" : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" }, 
                        { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "InstanceType" }, "Arch" ] } ] } 
        } 
